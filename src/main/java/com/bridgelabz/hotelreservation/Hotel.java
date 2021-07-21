@@ -7,7 +7,7 @@ public class Hotel
     private int weekDayRatesForRewards ;
     private int weekendRatesForRegular;
     private int weekendRatesForRewards;
-
+    public int totalRegularRate;
     public Hotel(String hotelName, int rates, int weekDayRatesForRewards, int weekendRatesForRegular, int weekendRatesForRewards) {
         this.hotelName = hotelName;
         this.rates = rates;

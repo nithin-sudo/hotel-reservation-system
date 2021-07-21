@@ -43,4 +43,10 @@ public class HotelReservationTest
         hotelReservation.addHotelDetails(ThirdHotel);
         Assertions.assertEquals(60 , hotelReservation.hotelList.get(1).getWeekendRatesForRegular());
     }
+    @Test
+    public void givenDateRange_ShouldPrintCheapestHotelsForRegularCostomer() {
+        LocalDate startDate = LocalDate.of(2020, Month.SEPTEMBER, 11);
+        LocalDate lastDate = LocalDate.of(2020, Month.SEPTEMBER, 12);
+        hotelReservation.findCheapestRegularHotels(startDate, lastDate);
+    }
 }
