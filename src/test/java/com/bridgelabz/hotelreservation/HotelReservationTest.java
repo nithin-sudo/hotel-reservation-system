@@ -3,6 +3,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class HotelReservationTest
 {
@@ -60,5 +63,20 @@ public class HotelReservationTest
         hotelReservation.addHotelDetails(ThirdHotel);
         hotelReservation.hotelRatings(firstHotel, 3);
         Assertions.assertEquals(3, firstHotel.getRatings());
+    }
+    @Test
+    public void getBestRatedHotel_WhenProperDates_ShouldReturnBridgewood()
+    {
+        Hotel firstHotel = new Hotel("Lakewood",110 ,80,90,80);
+        Hotel secondHotel = new Hotel("Bridgewood",160,110,60,50);
+        Hotel ThirdHotel = new Hotel("Ridgewood",220,100,150,40);
+        hotelReservation.addHotelDetails(firstHotel);
+        hotelReservation.addHotelDetails(secondHotel);
+        hotelReservation.addHotelDetails(ThirdHotel);
+        hotelReservation.hotelRatings(firstHotel, 3);
+        hotelReservation.hotelRatings(secondHotel, 4);
+        hotelReservation.hotelRatings(ThirdHotel, 5);
+        HashMap<Integer, List<Map.Entry<String, Integer>>> hotels = hotelReservation.cheapestBestRatedHotel(LocalDate.of(2021,07,23),LocalDate.of(2021,07,24));
+        Assertions.assertEquals("Bridgewood", hotels.get(200).get(0).getKey());
     }
 }

@@ -73,11 +73,14 @@ public class HotelReservation
 
     /**
      * this function is use to find the cheapest hotel.
+     * @return
      */
-    public void findCheapestRegularHotels(LocalDate startDate, LocalDate lastDate) {
+    public List<Map.Entry<String, Integer>> findCheapestRegularHotels(LocalDate startDate, LocalDate lastDate) {
         weekEndData(startDate, lastDate);
         System.out.println("Min Rate Hotels");
         minRateInRegular.forEach((key, value) -> System.out.println("Hotel Name: " + key + "\nTotal Rate: " + value));
+
+        return null;
     }
 
     /**
@@ -87,6 +90,34 @@ public class HotelReservation
      */
     public void hotelRatings(Hotel hotel,int rating)
     {
-        hotel.setRating(rating);
+        hotel.setRatings(rating);
+    }
+    public HashMap<Integer, List<Map.Entry<String, Integer>>> cheapestBestRatedHotel(LocalDate startDate, LocalDate endDate)
+    {
+        try
+        {
+            HashMap<String, Integer> cheapHotelsWithBestRating = new HashMap<String, Integer>(); //created list for hotels having minimum rating
+            List<Map.Entry<String, Integer>> cheapHotels = findCheapestRegularHotels(startDate, endDate);
+            for (Hotel hotel : hotelList)
+            {
+                for (Map.Entry<String, Integer> cheapHotel : cheapHotels)
+                {
+                    if (cheapHotel.getKey().equals(hotel.getHotelName()))
+                    {
+                        cheapHotelsWithBestRating.put(hotel.getHotelName(),hotel.getRatings());
+                    }
+                }
+            }
+            int maxRating = cheapHotelsWithBestRating.entrySet().stream().max((entry1,entry2) -> entry1.getValue().compareTo(entry2.getValue())).get().getValue();
+            List<Map.Entry<String, Integer>> maxRatedHotel = cheapHotelsWithBestRating.entrySet().stream().filter(price -> price.getValue().equals(maxRating)).collect(Collectors.toList());
+            HashMap<Integer ,List<Map.Entry<String, Integer>>> bestRatedHotels = new HashMap<Integer, List<Map.Entry<String,Integer>>>();
+            bestRatedHotels.put(cheapHotels.get(0).getValue(), maxRatedHotel);
+            return bestRatedHotels;
+        }
+        catch (Exception e)
+        {
+            System.out.println("Invalid dates");
+            return null;
+        }
     }
 }
