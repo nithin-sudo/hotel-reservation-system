@@ -79,4 +79,14 @@ public class HotelReservation
         System.out.println("Min Rate Hotels");
         minRateInRegular.forEach((key, value) -> System.out.println("Hotel Name: " + key + "\nTotal Rate: " + value));
     }
+
+    /**
+     * adding hotel ratings
+     * @param hotel
+     * @param rating
+     */
+    public void hotelRatings(Hotel hotel,int rating)
+    {
+        hotel.setRating(rating);
+    }
 }

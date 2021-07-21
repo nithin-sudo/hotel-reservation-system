@@ -49,4 +49,16 @@ public class HotelReservationTest
         LocalDate lastDate = LocalDate.of(2020, Month.SEPTEMBER, 12);
         hotelReservation.findCheapestRegularHotels(startDate, lastDate);
     }
+    @Test
+    public void setRatingOfHotel_WhenLakewood_ShouldReturn3()
+    {
+        Hotel firstHotel = new Hotel("Lakewood",110 ,80,90,80);
+        Hotel secondHotel = new Hotel("Bridgewood",160,110,60,50);
+        Hotel ThirdHotel = new Hotel("Ridgewood",220,100,150,40);
+        hotelReservation.addHotelDetails(firstHotel);
+        hotelReservation.addHotelDetails(secondHotel);
+        hotelReservation.addHotelDetails(ThirdHotel);
+        hotelReservation.hotelRatings(firstHotel, 3);
+        Assertions.assertEquals(3, firstHotel.getRatings());
+    }
 }
