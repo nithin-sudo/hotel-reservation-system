@@ -1,5 +1,4 @@
 package com.bridgelabz.hotelreservation;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -9,11 +8,12 @@ public class HotelReservationTest
     @Test
     public void addingMultipleHotels()
     {
-        boolean isValidOne = hotelReservation.addHotelDetails("LakeWood",110);
-        Assertions.assertTrue(isValidOne);
-        boolean isValidTwo = hotelReservation.addHotelDetails("BridgeWood",160);
-        Assertions.assertTrue(isValidTwo);
-        boolean isValidThree = hotelReservation.addHotelDetails("RidgeWood",220);
-        Assertions.assertTrue(isValidThree);
+        Hotel firstHotel = new Hotel("Lakewood",110 );
+        Hotel secondHotel = new Hotel("Bridgewood",160);
+        Hotel ThirdHotel = new Hotel("Ridgewood",220);
+        hotelReservation.addHotelDetails(firstHotel);
+        hotelReservation.addHotelDetails(secondHotel);
+        hotelReservation.addHotelDetails(ThirdHotel);
+        Assertions.assertEquals("Lakewood",hotelReservation.hotelList.get(0).getHotelName());
     }
 }

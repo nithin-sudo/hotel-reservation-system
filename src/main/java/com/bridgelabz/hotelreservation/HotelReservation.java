@@ -4,9 +4,8 @@ import java.util.ArrayList;
 public class HotelReservation
 {
     ArrayList<Hotel> hotelList = new ArrayList<>();
-    public boolean addHotelDetails(String hotelName, int rates)
+    public void addHotelDetails(Hotel hotel)
     {
-        hotelList.add(new Hotel(hotelName,rates));
-        return true;
+        hotelList.add(hotel);
     }
 }
