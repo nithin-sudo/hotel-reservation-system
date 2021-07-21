@@ -40,8 +40,9 @@ public class HotelReservation
      * weekends also. dateList is use to store the date in the form of list traverse
      * the date list using advance for loop.
      * day of week is use to calculate the day at that particular date.
+     * @return
      */
-    public void weekEndData(LocalDate startDate, LocalDate lastDate) {
+    public HashMap<String, Integer> weekEndData(LocalDate startDate, LocalDate lastDate) {
         List<LocalDate> dateList = startDate.datesUntil(lastDate).collect(Collectors.toList());
         dateList.add(lastDate);
         for (LocalDate localDate : dateList) {
@@ -69,6 +70,7 @@ public class HotelReservation
                 minRateInRegular.put(hotel.getHotelName(), hotel.totalRegularRate);
             }
         }
+        return null;
     }
 
     /**
@@ -119,5 +121,24 @@ public class HotelReservation
             System.out.println("Invalid dates");
             return null;
         }
+    }
+    public HashMap<Integer, List<Map.Entry<String, Integer>>> bestRatingHotel(LocalDate startDate, LocalDate endDate)
+    {
+        HashMap<String, Integer> hotelPricesList = weekEndData(startDate, endDate);
+        HashMap<String, Integer> hotelsWithBestRating = new HashMap<String, Integer>(); //created list for hotels having minimum rating
+        for (Hotel hotel : hotelList)
+        {
+            hotelsWithBestRating.put(hotel.getHotelName(),hotel.getRatings());
+        }
+        List<Map.Entry<String, Integer>> maxRatedHotel = getBestRated(hotelsWithBestRating);
+        HashMap<Integer ,List<Map.Entry<String, Integer>>> bestRatedHotels = new HashMap<Integer, List<Map.Entry<String,Integer>>>();
+        bestRatedHotels.put(hotelPricesList.get(maxRatedHotel.get(0).getKey()), maxRatedHotel);
+        return bestRatedHotels;
+    }
+    private List<Map.Entry<String, Integer>> getBestRated(HashMap<String, Integer> hotelsWithBestRating)
+    {
+        int maxRating = hotelsWithBestRating.entrySet().stream().max((entry1,entry2) -> entry1.getValue().compareTo(entry2.getValue())).get().getValue();
+        List<Map.Entry<String, Integer>> maxRatedHotel = hotelsWithBestRating.entrySet().stream().filter(price -> price.getValue().equals(maxRating)).collect(Collectors.toList());
+        return maxRatedHotel;
     }
 }
