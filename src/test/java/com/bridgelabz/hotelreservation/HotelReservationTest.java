@@ -11,11 +11,11 @@ public class HotelReservationTest
      * This test method is use to check , if the hotel is added the return true .
      */
     @Test
-    public void addingMultipleHotels()
+    public void givenLakeWoodHotelShouldReturnLakeWood()
     {
-        Hotel firstHotel = new Hotel("Lakewood",110 );
-        Hotel secondHotel = new Hotel("Bridgewood",160);
-        Hotel ThirdHotel = new Hotel("Ridgewood",220);
+        Hotel firstHotel = new Hotel("Lakewood",110 ,80,90,80);
+        Hotel secondHotel = new Hotel("Bridgewood",160,110,60,50);
+        Hotel ThirdHotel = new Hotel("Ridgewood",220,100,150,40);
         hotelReservation.addHotelDetails(firstHotel);
         hotelReservation.addHotelDetails(secondHotel);
         hotelReservation.addHotelDetails(ThirdHotel);
@@ -31,5 +31,16 @@ public class HotelReservationTest
         LocalDate lastDate = LocalDate.of(2020, Month.SEPTEMBER, 11);
         Hotel cheapestHotel = hotelReservation.getCheapestHotel(startDate, lastDate);
         Assertions.assertEquals("LakeWood", cheapestHotel.getHotelName());
+    }
+    @Test
+    public void givenBridgeWoodHotelShouldReturnBridgeWood()
+    {
+        Hotel firstHotel = new Hotel("Lakewood",110 ,80,90,80);
+        Hotel secondHotel = new Hotel("Bridgewood",160,110,60,50);
+        Hotel ThirdHotel = new Hotel("Ridgewood",220,100,150,40);
+        hotelReservation.addHotelDetails(firstHotel);
+        hotelReservation.addHotelDetails(secondHotel);
+        hotelReservation.addHotelDetails(ThirdHotel);
+        Assertions.assertEquals(60 , hotelReservation.hotelList.get(1).getWeekendRatesForRegular());
     }
 }

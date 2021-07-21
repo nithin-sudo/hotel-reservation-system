@@ -18,6 +18,13 @@ public class HotelReservation
     {
         hotelList.add(hotel);
     }
+
+    /**
+     * added weekday and wekend rates.
+     * @param startDate
+     * @param lastDate
+     * @return
+     */
     public Hotel getCheapestHotel(LocalDate startDate, LocalDate lastDate) {
         long daysBetween = ChronoUnit.DAYS.between(startDate, lastDate);
         int cheapRate;
