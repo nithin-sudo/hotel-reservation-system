@@ -95,4 +95,19 @@ public class HotelReservationTest
         Assertions.assertEquals("Bridgewood", hotels.get(200).get(0).getKey());
         Assertions.assertEquals("Ridgewood", hotels.get(370).get(0).getKey());
     }
+    @Test
+    public void getBestRatedHotel_WhenNotProperDates_ShouldReturnNull()
+    {
+        Hotel firstHotel = new Hotel("Lakewood",110 ,80,90,80);
+        Hotel secondHotel = new Hotel("Bridgewood",160,110,60,50);
+        Hotel ThirdHotel = new Hotel("Ridgewood",220,100,150,40);
+        hotelReservation.addHotelDetails(firstHotel);
+        hotelReservation.addHotelDetails(secondHotel);
+        hotelReservation.addHotelDetails(ThirdHotel);
+        hotelReservation.hotelRatings(firstHotel, 3);
+        hotelReservation.hotelRatings(secondHotel, 4);
+        hotelReservation.hotelRatings(ThirdHotel, 5);
+        HashMap<Integer, List<Map.Entry<String, Integer>>> hotels = hotelReservation.bestRatingHotel(LocalDate.of(2021,07,23),LocalDate.of(2021,07,24));
+        Assertions.assertEquals(null, hotels);
+    }
 }
